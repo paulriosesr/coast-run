@@ -1,55 +1,62 @@
-# COAST RUN — Game Design Document (v1)
+# BLOOD NEON: LAST WATCH — GDD (Level 1 slice)
+
+**Status:** active. COAST RUN shelved → `/workspace/game/archive/coast-run/`.
+**Scope:** Playable vertical slice through Level 1 only. No Levels 2–8 content.
 
 ## Pitch
-A short browser pixel side-scroller. Run the coast, clear pits, dodge one walker, grab a coin, reach the flag.
+Fast pixel side-scrolling beat ’em up. Couch 1–4 local co-op (solo = AI partners or empty slots). Arcade-pulp neon rain, rust, blood. Snappy: dash, dash-cancel into attack, short hop, juggle, team tag finisher.
 
-## Tech
-- Phaser 3 + TypeScript
-- Integer pixel camera, nearest-neighbor only, no anti-aliasing
-- Arcade physics
-- Tilemap from JSON; sprites from packed sheets in `/game/app/public/assets/`
-- Ship target: GitHub Pages or Cloudflare Pages
+## Stack
+Extend existing Phaser 3 + TypeScript template under `/workspace/game/app/`. Do not rip architecture.
 
-## Locked sizes
-| Element | Size |
-|---------|------|
-| Tile | 16×16 |
-| Player canvas | 32×32 |
-| Enemy canvas | 32×32 |
-| Pixel grid | integer only |
+## World (locked)
+~2147. Helix Dynamics fused vampire plague + lunar lycanthropy. Last major Sunzone: Haven. UV grid dying. Broadcast: “Final Harvest” / Eclipse Engine. Playable hunters: the Last Watch.
 
-## Controls
-See `controls.md`. Arrows / WASD + Space.
+## Hunters (all four in code + select)
+| ID | Name | Kit | Overdrive |
+|----|------|-----|-----------|
+| `rex` | Rex “Bulwark” Harlan | Heavy hammer, armor-break, wide arcs | Exo-frame slam |
+| `nova` | Nova “Flicker” Solano | Dual batons, dash-cancel, air strings | Afterimage clones |
+| `silas` | Silas “Fang” Moreau | Claws, lunges, juggles; chip if OD held | Partial wolf form |
+| `vesper` | Vesper “Crimson” Vale | Blood-lances, drain heal on hit | Crimson Veil HP steal dash |
 
-## v1 Level (single screen stretch)
-- Flat ground (16×16 tiles)
-- 2 pits (kill / fall reset)
-- 1 walking enemy (patrols a short span)
-- 1 coin (collect once)
-- 1 flag (win / end)
+Distinct color silhouettes; frames: idle / walk / dash / attack / hurt / ko + OD visual change.
 
-## Player
-- Move left/right, jump
-- Dies on pit fall or enemy contact
-- Respawn at start on death
-- Win on flag touch — **v1 win = reach flag** (coin is score/optional pickup)
+## Co-op (slice)
+- Shared camera; soft pull / off-screen arrow if lagging
+- Revive: stand near downed + hold interact
+- Team finisher: 2+ players hit same elite/boss in window → canned smash + bonus dmg
+- Overdrive meter: combos + Essence canisters
 
-## Camera
-- Follow player on X, integer snap
-- No sub-pixel camera positions
+## Story (implement now)
+1. Cold open (10–20s, skippable) → title
+2. Pre-L1 briefing + 4 portraits
+3. In-level barks (Rex / Nova / Silas / Vesper — see Paul brief)
+4. Clear: Broker drops Helix data-spike → epilogue countdown + Vein Markets pin → “LEVEL 2 LOCKED — SLICE COMPLETE”
 
-## Art pipeline
-- Palette: `palette.md` only (user approves before sprite gen)
-- Magenta `#FF00FF` on every raw frame (chroma key)
-- Picasso owns style-guide, prompts, sheets; Scotty never invents art sizes/colors
+## Level 1 — Haven’s Edge
+Flow: tutorial alley → wave street → barricade hold (elite) → checkpoint PA → Broker plaza → boss.
 
-## Out of scope for v1
-- Multiple levels, HUD polish, sound, power-ups, flying enemies, slopes
+### Enemies (L1 only)
+- Ghoul, Street vampire, Scout wolf (2–3 packs)
+- Elite: Barricade Captain (shield; Rex breaks faster)
+- Boss: Pale Broker — P1 cane/blade + ghouls; P2 (50%) faster dashes, blood-mist chip, UV blackouts
 
-## Acceptance (QA checklist)
-- [ ] Jump height feels consistent; no floor sink
-- [ ] No camera jitter on tile edges
-- [ ] Collisions not off-by-one
-- [ ] Sprites snap to pixel grid
-- [ ] No console errors; playable FPS
-- [ ] Pit / enemy / coin / flag all behave as above
+## Systems
+Title / 4-portrait select · 1–4 local (kb + pad) · HP / OD / lives-continue / combo · smashables · pause / retry / return to select
+
+## Art tone
+Dark void, neon magenta/cyan, rust, wet asphalt, sickly UV white. Readable at couch distance.
+
+## Acceptance (QA)
+- [ ] Any of 4 hunters finish L1 solo
+- [ ] 2–4 join, share stage, revive, kill Broker
+- [ ] Overdrive per kit with visible change (not just damage mult)
+- [ ] Open, briefing, Broker PA, data-spike ending in
+- [ ] Nothing past L1 playable except Vein Markets lock tease
+
+## Build order
+data (chars, enemies, level script) → controllers → L1 encounters → boss → UI/story → juice (hit-stop, afterimage, canister burst)
+
+## Out of scope
+L2–8 stages · lore novels · walking sim · new engine structure

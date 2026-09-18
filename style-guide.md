@@ -1,22 +1,22 @@
-# COAST RUN — Style Guide
+# BLOOD NEON: LAST WATCH — Style Guide
 
-**Palette:** approved (`palette.md` only). Magenta `#FF00FF` = raw-frame chroma key only.
+**Palette:** approved — `/workspace/game/palette.md` only.  
+**Chroma:** `#FF00FF` on every raw frame (not in finished sheets).
 
-## Pixel rules
-- Nearest-neighbor, 1:1 pixels, no AA, no gradients, no drop shadows
-- Integer grid; outlines 1px with `#3A3A48`
-- Player fill: `#D94F3D`; accents from palette only
+## Look
+Dark void, neon magenta/cyan, rust, wet asphalt, sickly UV. No AA, no gradients, no soft drop shadows. Readable at couch distance.
 
-## Canvases
-| Asset | Canvas | Foot-contact line (Y) | Default facing |
-|-------|--------|------------------------|----------------|
-| Player idle / walk | 32×32 | 31 (bottom row) | right |
+## Locked canvases
+| Asset | Canvas | Foot Y | Facing |
+|-------|--------|--------|--------|
+| Hunters | 48×48 | 47 | right (flip in engine) |
+| Ghoul / Street vamp | 40×40 | 39 | right |
+| Scout wolf | 48×32 | 31 | right |
+| Barricade Captain | 48×48 | 47 | right |
+| Pale Broker | 64×64 | 63 | right |
+
+## Hunter anims (v1)
+idle 4 · walk 6 · dash 3 · attack 5 · hurt 2 · ko 3 · OD tell = recolor/FX on same canvases (no extra size)
 
 ## Pipeline
-1. Prompt sheet → generate raw frames (magenta bg)
-2. Picasso audits grid + palette drift
-3. Slice / pack → `/workspace/game/app/public/assets/`
-4. Log in `art/audit.md` — only then Engineer wires frames
-
-## Current focus
-Player idle (2) + walk (4). No tileset / HUD / extras until those are audited.
+Prompt → raw (magenta) → Picasso grid+palette audit → `app/public/assets/` + `art/audit.md` → Scotty wires.
