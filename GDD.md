@@ -32,7 +32,7 @@ See `controls.md`. Arrows / WASD + Space.
 - Move left/right, jump
 - Dies on pit fall or enemy contact
 - Respawn at start on death
-- Win on flag touch after (or with) coin optional for v1 — **v1 win = reach flag** (coin is score/optional pickup)
+- Win on flag touch — **v1 win = reach flag** (coin is score/optional pickup)
 
 ## Camera
 - Follow player on X, integer snap
