@@ -1,28 +1,24 @@
 import Phaser from 'phaser';
+import { Palette } from './data/palette';
 import { BootScene } from './scenes/BootScene';
-import { PlayScene } from './scenes/PlayScene';
+import { TitleScene } from './scenes/TitleScene';
+import { SelectScene } from './scenes/SelectScene';
+import { Level1Scene } from './scenes/Level1Scene';
+import { ClearScene } from './scenes/ClearScene';
 
-const config: Phaser.Types.Core.GameConfig = {
+new Phaser.Game({
   type: Phaser.AUTO,
   parent: 'game-container',
-  width: 320,
-  height: 180,
-  backgroundColor: '#0B1E2D',
+  width: 480,
+  height: 270,
+  backgroundColor: Palette.void,
   pixelArt: true,
   antialias: false,
   roundPixels: true,
   physics: {
     default: 'arcade',
-    arcade: {
-      gravity: { x: 0, y: 800 },
-      debug: false,
-    },
+    arcade: { gravity: { x: 0, y: 900 }, debug: false },
   },
-  scale: {
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-  },
-  scene: [BootScene, PlayScene],
-};
-
-new Phaser.Game(config);
+  scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
+  scene: [BootScene, TitleScene, SelectScene, Level1Scene, ClearScene],
+});
